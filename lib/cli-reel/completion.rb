@@ -13,8 +13,8 @@ module Cli
         @command = command
       end
 
-      def complement(args)
-        Readline::FILENAME_COMPLETION_PROC.call(args.last || '')
+      def complement(args, word)
+        Readline::FILENAME_COMPLETION_PROC.call(word)
       end
 
       module Util

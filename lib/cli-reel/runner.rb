@@ -87,7 +87,7 @@ module Cli
       def completion_proc(word)
         Readline.completion_append_character = ''
         words = @preset_args + Readline.line_buffer.split(/ |\t|\n/)
-        completion.complement(words)
+        completion.complement(words, word)
       end
 
       def completion
