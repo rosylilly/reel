@@ -1,3 +1,4 @@
 #!/usr/bin/env ruby
 
 require 'cli-reel'
+Cli::Reel.start(ARGV)

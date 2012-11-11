@@ -1,7 +1,10 @@
-require "cli-reel/version"
+require 'cli-reel/version'
+require 'cli-reel/runner'
 
 module Cli
   module Reel
-    # Your code goes here...
+    def self.start(argv)
+      Runner.new(argv).start
+    end
   end
 end
