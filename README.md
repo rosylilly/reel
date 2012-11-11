@@ -17,6 +17,11 @@ repl との違いは
 
     $ gem install cli-reel
 
+or
+
+    $ git clone git://github.com/rosylilly/reel.git ~/reel
+    $ export PATH=$PATH:~/reel/bin
+
 ## Usage
 
 git の reel
