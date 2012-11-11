@@ -73,7 +73,6 @@ module Cli
         Readline.completion_proc = proc { |word|
           instance.completion_proc(word)
         }
-        Readline.basic_word_break_characters = ''
 
         while buffer = Readline.readline("(#{@command.color(:green)})>> ", @history)
           run(buffer)
@@ -86,7 +85,8 @@ module Cli
       end
 
       def completion_proc(word)
-        words = @preset_args + word.split(/ |\t|\n|"|\\|'|`|\@|\$|\>|\<|\=|\;|\&|\{|\(|\)/)
+        Readline.completion_append_character = ''
+        words = @preset_args + Readline.line_buffer.split(/ |\t|\n/)
         completion.complement(words)
       end
 

@@ -16,6 +16,56 @@ module Cli
       def complement(args)
         Readline::FILENAME_COMPLETION_PROC.call(args.last || '')
       end
+
+      module Util
+        def q(string)
+          Regexp.quote string
+        end
+
+        def subcommand(word)
+          (@subcommands || []).grep(/^#{Regexp.quote word}/)
+        end
+
+        def options(options, word)
+          comps = options.grep(/^#{Regexp.quote word.sub(/=.*/, '')}/)
+
+          comp = (comps[0] || '').sub(/<\w+>/, '')
+          if comps.size == 1 && word.match(/^#{q comp}/) && comps[0].match(/=<(\w+)>$/)
+            pattern = $1.to_s
+            path = word.sub(/^#{q comp}/, '')
+            case pattern
+            when 'path'
+              ls(path)
+            when 'dir'
+              dir(path)
+            when 'file'
+              file(path)
+            else
+              comp
+            end
+          else
+            comps.map do |comp|
+              comp.sub(/<\w+>/, '')
+            end
+          end
+        end
+
+        def ls(word)
+          Readline::FILENAME_COMPLETION_PROC.call(word)
+        end
+
+        def dir(word)
+          (ls(word) || []).select do |path|
+            FileTest::directory?(path)
+          end
+        end
+
+        def file(word)
+          (ls(word) || []).select do |path|
+            FileTest::file?(path)
+          end
+        end
+      end
     end
   end
 end
