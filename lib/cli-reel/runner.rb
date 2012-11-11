@@ -10,7 +10,7 @@ module Cli
         @argv = argv
         @debug = false
         @verbose = false
-        @history = false
+        @history = true
         Sickill::Rainbow.enabled = false
         load_configs
         opt_parse(@argv)
@@ -81,6 +81,7 @@ module Cli
 
       def run(input)
         eval_string = "#{prefix} #{input}"
+        puts "<< #{eval_string.color(:red)}" if @verbose || @debug
         system(eval_string)
       end
 
