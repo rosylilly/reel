@@ -22,7 +22,7 @@ module Cli
           Regexp.quote string
         end
 
-        def subcommand(word)
+        def subcommands(word)
           (@subcommands || []).grep(/^#{Regexp.quote word}/)
         end
 
@@ -37,9 +37,9 @@ module Cli
             when 'path'
               ls(path)
             when 'dir'
-              dir(path)
+              dirs(path)
             when 'file'
-              file(path)
+              files(path)
             else
               comp
             end
@@ -54,13 +54,13 @@ module Cli
           Readline::FILENAME_COMPLETION_PROC.call(word)
         end
 
-        def dir(word)
+        def dirs(word)
           (ls(word) || []).select do |path|
             FileTest::directory?(path)
           end
         end
 
-        def file(word)
+        def files(word)
           (ls(word) || []).select do |path|
             FileTest::file?(path)
           end

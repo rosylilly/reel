@@ -33,7 +33,7 @@ module Cli
         OPTIONS = [
           '--version',
           '--help',
-          '-c ',
+          '-c',
           '--exec-path=<path>',
           '--html-path',
           '--man-path',
@@ -73,8 +73,9 @@ module Cli
             if word.match(/^-/)
               options(OPTIONS, word)
             else
-              subcommand(word)
+              subcommands(word)
             end
+          when 1 .. Float::INFINITY
           end
         end
       end
